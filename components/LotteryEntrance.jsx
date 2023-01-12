@@ -98,7 +98,6 @@ const LotteryEntrance = () => {
       title: "Transaction Notification",
       message: "Transaction Complete!",
       position: "topR",
-      //   icon: "bell",
     })
   }
 
@@ -131,5 +130,4 @@ const LotteryEntrance = () => {
     </div>
   )
 }
-//
 export default LotteryEntrance

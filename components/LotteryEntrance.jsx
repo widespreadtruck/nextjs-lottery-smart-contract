@@ -127,6 +127,7 @@ const LotteryEntrance = () => {
       ) : (
         <div>No Raffle Address Detected</div>
       )}
+      <div>This site is hosted on IPFS</div>
     </div>
   )
 }

@@ -21,7 +21,11 @@ const LotteryEntrance = () => {
   // get contract instance
   //   const contract = new ethers.Contract(raffleAddress, abi, web3)
 
-  const { runContractFunction: enterRaffle, isFetching, isLoading } = useWeb3Contract({
+  const {
+    runContractFunction: enterRaffle,
+    isFetching,
+    isLoading,
+  } = useWeb3Contract({
     abi: abi,
     contractAddress: raffleAddress,
     functionName: "enterRaffle",
@@ -65,26 +69,9 @@ const LotteryEntrance = () => {
   useEffect(() => {
     if (isWeb3Enabled) {
       updateUI()
-      listenForWinnerToBePicked()
+      // listenForWinnerToBePicked()
     }
-  }, [isWeb3Enabled, numberOfPlayers])
-
-  async function listenForWinnerToBePicked() {
-    const lottery = new ethers.Contract(raffleAddress, abi, web3)
-    console.log("Waiting for a winner ...")
-    await new Promise((resolve, reject) => {
-      lottery.once("WinnerPicked", async () => {
-        console.log("We got a winner!")
-        try {
-          await updateUI()
-          resolve()
-        } catch (error) {
-          console.log(error)
-          reject(error)
-        }
-      })
-    })
-  }
+  }, [isWeb3Enabled])
 
   const handleSuccess = async function (tx) {
     await tx.wait(1)
@@ -105,8 +92,14 @@ const LotteryEntrance = () => {
     <div className="p-5">
       {raffleAddress ? (
         <div>
+          <div className="mt-3 font-medium">{`Entrance fee is: ${ethers.utils.formatUnits(
+            entranceFee,
+            "ether"
+          )} ETH`}</div>
+          <div className="mt-3 font-medium">{`Number of players: ${numberOfPlayers}`}</div>
+          <div className="mt-3 font-medium">{`Recent Winner: ${recentWinner}`}</div>
           <button
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-2 rounded ml-auto"
+            className="mt-3 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-2 rounded ml-auto"
             onClick={async function () {
               await enterRaffle({
                 onSuccess: handleSuccess,
@@ -115,19 +108,17 @@ const LotteryEntrance = () => {
             }}
             disabled={isLoading || isFetching}
           >
-            {isLoading || isFetching ? <div className='animate-spin spinner-border border-b-2 h-8 w-8 rounded-full'></div> : <div>Enter Raffle</div>}
+            {isLoading || isFetching ? (
+              <div className="animate-spin spinner-border border-b-2 h-8 w-8 rounded-full"></div>
+            ) : (
+              <div>Enter Raffle</div>
+            )}
           </button>
-          <div>{`Entrance Fee is ${ethers.utils.formatUnits(
-            entranceFee,
-            "ether"
-          )} ETH`}</div>
-          <div>{`Number of players: ${numberOfPlayers}`}</div>
-          <div>{`Recent Winner: ${recentWinner}`}</div>
         </div>
       ) : (
         <div>No Raffle Address Detected</div>
       )}
-      <div>This site is hosted on IPFS</div>
+      {/* <div>This site is hosted on IPFS</div> */}
     </div>
   )
 }

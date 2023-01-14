@@ -15,6 +15,7 @@ const LotteryEntrance = () => {
   // get chainId obj from Moralis and re-name it
   const { chainId: chainIdHex, isWeb3Enabled, web3 } = useMoralis()
   const chainId = parseInt(chainIdHex)
+  console.log("chainId", chainId)
   const raffleAddress =
     chainId in contractAddresses ? contractAddresses[chainId][0] : null
 
@@ -89,7 +90,7 @@ const LotteryEntrance = () => {
   }
 
   return (
-    <div className="p-5">
+    <div className="p-5 font-monospace">
       {raffleAddress ? (
         <div>
           <div className="mt-3 font-medium">{`Entrance fee is: ${ethers.utils.formatUnits(
@@ -116,7 +117,35 @@ const LotteryEntrance = () => {
           </button>
         </div>
       ) : (
-        <div>No Raffle Address Detected</div>
+        <div className="w-2/3 pl-4">
+          <div className="text-lg">Hi there 👋</div>
+          <div className="mt-2">
+            <div>
+              This is a Solidity Smart Contract that selects a random winner by
+              utilizing the Chainlink VRF.
+            </div>
+            <div>The contract is deployed on Goerli Network. </div>
+            <div>The frontend is hosted on the IPFS using Fleek.</div>
+          </div>
+          <div className="mt-4 text-lg">How it works 🏆</div>
+          <div className="mt-2">
+            <div>
+              Any number of people can participate by sending 0.1 GoerliETH on
+              Goerli Testnet
+            </div>
+          </div>
+          <div className="mt-4 text-lg">To play:</div>
+          <ul className="mt-2 list-decimal list-inside">
+            <li>Connect your wallet and select Goerli Testnet</li>
+            <li>Click Enter Raffle button and confirm your trx</li>
+            <li>
+              A random winner will be selected in a few minutes. All funds will
+              be transferred to the winner automatically. Good Luck 🍀
+            </li>
+          </ul>
+
+          {/* <div>No Raffle Address Detected</div> */}
+        </div>
       )}
       {/* <div>This site is hosted on IPFS</div> */}
     </div>

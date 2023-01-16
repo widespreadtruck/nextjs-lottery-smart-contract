@@ -1,10 +1,23 @@
-import Head from 'next/head'
+import Head from "next/head"
 // import ManualHeader from "../components/ManualHeader"
 import Header from "../components/Header"
 import LotteryEntrance from "../components/LotteryEntrance"
 
+import Particles from "react-particles"
+import { loadFull } from "tsparticles"
+import { particlesConfig } from "../constants"
+import { useCallback } from "react"
 
 export default function Home() {
+  const particlesInit = useCallback(async (engine) => {
+    console.log(engine)
+    await loadFull(engine)
+  }, [])
+
+  const particlesLoaded = useCallback(async (container) => {
+    await console.log(container)
+  }, [])
+
   return (
     <div>
       <Head>
@@ -17,6 +30,14 @@ export default function Home() {
       {/* <ManualHeader /> */}
       <Header />
       <LotteryEntrance />
+      <div className="-z-50 absolute">
+        <Particles
+          id="tsparticles"
+          init={particlesInit}
+          loaded={particlesLoaded}
+          options={particlesConfig}
+        />
+      </div>
     </div>
   )
 }

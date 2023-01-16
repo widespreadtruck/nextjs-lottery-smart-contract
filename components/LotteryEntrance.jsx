@@ -4,6 +4,7 @@ import { abi, contractAddresses } from "../constants"
 import { ethers } from "ethers"
 import { useNotification } from "web3uikit"
 
+
 const LotteryEntrance = () => {
   const [entranceFee, setEntranceFee] = useState("0")
   const [numberOfPlayers, setNumberOfPlayers] = useState("0")
@@ -90,7 +91,7 @@ const LotteryEntrance = () => {
   }
 
   return (
-    <div className="p-5 font-monospace">
+    <div className="p-5 font-monospace text-gray-300">
       {raffleAddress ? (
         <div>
           <div className="mt-3 font-medium">{`Entrance fee is: ${ethers.utils.formatUnits(
@@ -127,27 +128,25 @@ const LotteryEntrance = () => {
             <div>The contract is deployed on Goerli Network. </div>
             <div>The frontend is hosted on the IPFS using Fleek.</div>
           </div>
-          <div className="mt-4 text-lg">How it works 🏆</div>
+          <div className="mt-6 text-lg">How it works 🏆</div>
           <div className="mt-2">
             <div>
               Any number of people can participate by sending 0.1 GoerliETH on
               Goerli Testnet
             </div>
           </div>
-          <div className="mt-4 text-lg">To play:</div>
+          <div className="mt-6 text-lg">To play 🎲</div>
           <ul className="mt-2 list-decimal list-inside">
             <li>Connect your wallet and select Goerli Testnet</li>
             <li>Click Enter Raffle button and confirm your trx</li>
             <li>
               A random winner will be selected in a few minutes. All funds will
-              be transferred to the winner automatically. Good Luck 🍀
+              be transferred to the winner automatically. Good Luck!
             </li>
           </ul>
-
           {/* <div>No Raffle Address Detected</div> */}
         </div>
       )}
-      {/* <div>This site is hosted on IPFS</div> */}
     </div>
   )
 }
